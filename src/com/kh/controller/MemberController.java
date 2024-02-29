@@ -91,4 +91,15 @@ public class MemberController {
 		
 	}
 
+
+	public void searchMemberById(String userId) {
+		Member member = new MemberDao().searchMemberById(userId);
+		
+		if (member == null) {
+			new MemberMenu().displayFail("해당 회원이 없습니다.");
+		} else {
+			new MemberMenu().displayMember(member);
+		}
+	}
+
 }

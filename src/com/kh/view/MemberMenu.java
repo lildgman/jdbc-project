@@ -29,7 +29,7 @@ public class MemberMenu {
 			System.out.println("=============회원관리 프로그램============");
 			System.out.println("1. 회원 추가");
 			System.out.println("2. 회원 전체 조회");
-//			System.out.println("3. 회원 아이디 검색");
+			System.out.println("3. 회원 아이디 검색");
 //			System.out.println("4. 회원 이름으로 키워드 검색");
 			System.out.println("5. 회원 정보 변경");
 			System.out.println("6. 회원 탈퇴");
@@ -46,7 +46,9 @@ public class MemberMenu {
 			case 2:
 				mc.selectMemberList();
 				break;
-//			case 3:
+			case 3:
+				searchMemberById();
+				break;
 //			case 4:
 			case 5:
 				updateMemberStatus();
@@ -64,6 +66,13 @@ public class MemberMenu {
 		}
 	}
 	
+	private void searchMemberById() {
+		System.out.print("찾을 아이디: ");
+		String userId = sc.nextLine();
+		mc.searchMemberById(userId);
+		
+	}
+
 	// 1. 회원 추가
 	private void inputMember() {
 		System.out.println("=======회원추가=======");
@@ -99,6 +108,9 @@ public class MemberMenu {
 		mc.insertMember(userId, userPwd, userName, gender, age, email, phone, address, hobby);
 
 	}
+	
+	// 3. 회원 아이디 검색
+	
 	
 	// 5. 회원정보변경
 	private void updateMemberStatus() {
@@ -166,5 +178,9 @@ public class MemberMenu {
 	 */
 	public void displayNoData(String message) {
 		System.out.println("\n"+message);
+	}
+	
+	public void displayMember(Member member) {
+		System.out.println(member.toString());
 	}
 }

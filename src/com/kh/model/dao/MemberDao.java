@@ -264,5 +264,51 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member searchMemberById(String userId) {
+		Member member = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+		String dbId = "JDBC" ;
+		String dbPwd = "JDBC";
+		
+		String sql = "SELECT * FROM MEMBER "
+				+ "WHERE USERID = ?";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			conn = DriverManager.getConnection(dbUrl,dbId,dbPwd);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				member = new Member(rset.getInt("USERNO"),
+						rset.getString("USERID"),
+						rset.getString("USERPWD"),
+						rset.getString("USERNAME"),
+						rset.getString("GENDER"),
+						rset.getInt("AGE"),
+						rset.getString("EMAIL"),
+						rset.getString("PHONE"),
+						 rset.getString("ADDRESS"),
+						 rset.getString("HOBBY"), 
+						 rset.getDate("ENROLLDATE")
+						);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return member;
+	}
+
 
 }
